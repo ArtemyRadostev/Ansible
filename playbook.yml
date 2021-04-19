@@ -3,10 +3,10 @@
   tasks:
 #Install docker
    - include_role:
-       name: epam-exam-docker-role
+       name: docker-rule
 #Make first webapp container
    - include_role:
-       name: epam-exam-webapp-role
+       name: docker-rule
        public: yes
      vars:
        docker_container_name: 'webapp1'
@@ -16,7 +16,7 @@
        src_port: 5001
 #Make second webapp container
    - include_role:
-       name: epam-exam-webapp-role
+       name: docker-rule
        public: yes
      vars:
        docker_container_name: 'webapp2'
@@ -26,7 +26,7 @@
        src_port: 5002
 #Make third webapp container
    - include_role:
-       name: epam-exam-webapp-role
+       name: docker-rule
        public: yes
      vars:
        docker_container_name: 'webapp3'
@@ -36,7 +36,7 @@
        src_port: 5003
 #Make Nginx container
    - include_role:
-       name: epam-exam-nginx-role
+       name: nginx-load_balancer
        public: yes
      vars:
        app_name: 'webapp'
