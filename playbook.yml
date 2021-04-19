@@ -1,1 +1,45 @@
-
+---
+- hosts: Nodes
+  tasks:
+#Install docker
+   - include_role:
+       name: epam-exam-docker-role
+#Make first webapp container
+   - include_role:
+       name: epam-exam-webapp-role
+       public: yes
+     vars:
+       docker_container_name: 'webapp1'
+       docker_image_name: 'jenkins/jenkins:lts'
+       docker_image_build: '1'
+       hostname: 'webapp1'
+       src_port: 5001
+#Make second webapp container
+   - include_role:
+       name: epam-exam-webapp-role
+       public: yes
+     vars:
+       docker_container_name: 'webapp2'
+       docker_image_name: 'jenkins/jenkins:lts'
+       docker_image_build: '1'
+       hostname: 'webapp2'
+       src_port: 5002
+#Make third webapp container
+   - include_role:
+       name: epam-exam-webapp-role
+       public: yes
+     vars:
+       docker_container_name: 'webapp3'
+       docker_image_name: 'jenkins/jenkins:lts'
+       docker_image_build: '1'
+       hostname: 'webapp3'
+       src_port: 5003
+#Make Nginx container
+   - include_role:
+       name: epam-exam-nginx-role
+       public: yes
+     vars:
+       app_name: 'webapp'
+       server1_url: 'webapp1:5000'
+       server2_url: 'webapp2:5000'
+       server3_url: 'webapp3:5000'
