@@ -1,0 +1,24 @@
+---
+- hosts: jenkins-servers
+  become:
+    true
+  become_method:
+    su
+  become_user:
+    root
+  remote_user:
+    art
+  roles:
+   - docker-role
+
+- hosts: jenkins-agent
+  become:
+    true
+  become_method:
+    sudo
+  become_user:
+    root
+  remote_user:
+    jenkins
+  roles:
+   - docker-role
