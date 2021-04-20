@@ -1,0 +1,5 @@
+---
+- name: Install Nginx image
+  docker_container:
+      name: pull
+      image: nginx:stable-alpine-perl
