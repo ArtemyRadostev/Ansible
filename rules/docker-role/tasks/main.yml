@@ -24,7 +24,7 @@
         name: docker-ce
         state: latest
 
-    - name: Docker-PY # Установка пакета, необходимого для работы докер модуля в ансибл
+    - name: Install Docker-PY # Установка пакета, необходимого для работы докер модуля в ансибл
       yum:
         name: python-docker-py
         state: latest
