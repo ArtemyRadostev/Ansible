@@ -13,13 +13,12 @@
       ports: '{{ nginx_published_ports }}'
       exposed_ports: '{{ nginx_exposed_ports }}'
       networks:
-        - name: '{{item}}'
+        - name: '{{ docker_net_name }}'
       state: 'started'
       restart_policy: 'always'
       log_driver: 'syslog'
       log_options:
         tag: '{{ nginx_container_name }}'
-      with_items: '{{ docker_net_name }}'
 
 - name: Add the newly created container to the inventory
   add_host:
