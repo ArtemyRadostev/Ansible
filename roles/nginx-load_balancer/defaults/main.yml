@@ -1,0 +1,15 @@
+---
+nginx_base_directory: '/etc/nginx'
+nginx_reverse_proxy_config_directory: "{{ nginx_base_directory }}/conf.d"
+nginx_container_name: 'ffswhy1/nginx:1.0'
+nginx_image: 'nginx:stable-alpine-perl'
+nginx_static_html_directory: 'defaults'
+docker_net_name: 'nginx'
+
+nginx_reverse_proxy_proxies: []
+
+nginx_exposed_ports:
+  - '80'
+
+nginx_published_ports:
+  - '85:80'

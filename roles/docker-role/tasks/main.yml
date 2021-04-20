@@ -1,0 +1,31 @@
+---
+    - name: Install yum utils 
+      yum:
+        name: yum-utils
+        state: latest
+
+    - name: Install device-mapper-persistent-data
+      yum:
+        name: device-mapper-persistent-data
+        state: latest
+
+    - name: Add Docker repo # Добавляю репу докера в директорию с репозиториями yum'а
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+    - name: Install Docker
+      package:
+        name: docker-ce
+        state: latest
+
+    - name: Install Docker-PY # Установка пакета, необходимого для работы докер модуля в ансибл
+      yum:
+        name: python-docker-py
+        state: latest
+
+    - name: Start Docker service # Запуск докера по окончанию установки
+      service:
+        name: docker
+        state: started
+        enabled: yes

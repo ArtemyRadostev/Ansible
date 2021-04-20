@@ -1,0 +1,40 @@
+---
+# tasks file for roles/Nginx-role
+- name: Start the nginx docker container
+  become: yes
+  become_method: sudo
+  docker_container:
+    image: '{{ nginx_image }}'
+    name: '{{ nginx_container_name }}'
+    ports: '{{ nginx_published_ports }}'
+    exposed_ports: '{{ nginx_exposed_ports }}'
+    networks:
+      - name: '{{item}}'
+    state: 'started'
+    restart_policy: 'always'
+    log_driver: 'syslog'
+    log_options:
+      tag: '{{ nginx_container_name }}'
+  with_items: '{{ docker_net_name }}'
+
+- name: Add the newly created container to the inventory
+  add_host:
+    hostname: '{{ nginx_container_name }}'
+    ansible_connection: docker
+
+- name: Copy over the template
+  template:
+   src: nginx.conf.j2
+   dest: /tmp/nginx.conf
+  become: yes
+
+- name: Copy in the container
+  command: docker cp /tmp/nginx.conf '{{ nginx_container_name }}':/etc/nginx/nginx.conf
+  become: yes
+  become_method: sudo
+
+- name: Restart nginx service
+  become: yes
+  become_method: sudo
+  command: docker exec '{{ nginx_container_name }}' bash -c 'service nginx restart'
+  ignore_errors: yes
