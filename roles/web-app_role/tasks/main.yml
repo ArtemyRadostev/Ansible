@@ -1,5 +1,7 @@
 ---
 - name: Create a container
+  become: yes
+  become_method: sudo
   docker_container:
     name: "{{ docker_container_name }}"
     image: "{{ docker_image_name }}:{{ docker_image_build }}"
