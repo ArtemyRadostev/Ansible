@@ -1,0 +1,12 @@
+---
+- name: Create a container
+  docker_container:
+    name: "{{ docker_container_name }}"
+    image: "{{ docker_image_name }}:{{ docker_image_build }}"
+    detach: true
+    hostname: "{{ hostname }}"
+    ports:
+      - "{{ src_port }}:{{ dst_port }}"
+    networks:
+      - name: "{{item}}"
+  with_items: "{{ docker_net_name }}"

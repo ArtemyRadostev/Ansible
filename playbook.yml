@@ -1,37 +1,38 @@
 ---
-- hosts: Nodes
+- hosts: nodes
+  gather_facts: no
   tasks:
 #Install docker
    - include_role:
-       name: docker-rule
+       name: docker-role
 #Make first webapp container
    - include_role:
-       name: docker-rule
+       name: web-app_role
        public: yes
      vars:
        docker_container_name: 'webapp1'
-       docker_image_name: 'jenkins/jenkins:lts'
-       docker_image_build: '1'
+       docker_image_name: 'ffswhy1/flask_app'
+       docker_image_build: '14'
        hostname: 'webapp1'
        src_port: 5001
 #Make second webapp container
    - include_role:
-       name: docker-rule
+       name: web-app_role
        public: yes
      vars:
        docker_container_name: 'webapp2'
-       docker_image_name: 'jenkins/jenkins:lts'
-       docker_image_build: '1'
+       docker_image_name: 'ffswhy1/flask_app'
+       docker_image_build: '14'
        hostname: 'webapp2'
        src_port: 5002
 #Make third webapp container
    - include_role:
-       name: docker-rule
+       name: web-app_role
        public: yes
      vars:
        docker_container_name: 'webapp3'
-       docker_image_name: 'jenkins/jenkins:lts'
-       docker_image_build: '1'
+       docker_image_name: 'ffswhy1/flask_app'
+       docker_image_build: '14'
        hostname: 'webapp3'
        src_port: 5003
 #Make Nginx container

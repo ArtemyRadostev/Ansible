@@ -42,8 +42,8 @@
 
 ## db-[99:101]-node.example.com
 
-[host]
-192.168.56.112
+[nodes]
+192.168.56.115
 
 [all:vars]
 ansible_ssh_pass=lmao

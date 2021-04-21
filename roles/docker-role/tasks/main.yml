@@ -1,31 +1,50 @@
 ---
-    - name: Install yum utils 
+    - name: Install yum utils
+      become: yes
+      become_method: sudo
       yum:
-        name: yum-utils
-        state: latest
+       name: yum-utils
+       state: latest
 
     - name: Install device-mapper-persistent-data
+      become: yes
+      become_method: sudo
       yum:
-        name: device-mapper-persistent-data
-        state: latest
+       name: device-mapper-persistent-data
+       state: latest
 
     - name: Add Docker repo # Добавляю репу докера в директорию с репозиториями yum'а
+      become: yes
+      become_method: sudo
       get_url:
-        url: https://download.docker.com/linux/centos/docker-ce.repo
-        dest: /etc/yum.repos.d/docker-ce.repo
+       url: https://download.docker.com/linux/centos/docker-ce.repo
+       dest: /etc/yum.repos.d/docker-ce.repo
 
     - name: Install Docker
+      become: yes
+      become_method: sudo
       package:
-        name: docker-ce
-        state: latest
+       name: docker-ce
+       state: latest
 
     - name: Install Docker-PY # Установка пакета, необходимого для работы докер модуля в ансибл
+      become: yes
+      become_method: sudo
       yum:
-        name: python-docker-py
-        state: latest
+       name: python-docker-py
+       state: latest
 
     - name: Start Docker service # Запуск докера по окончанию установки
+      become: yes
+      become_method: sudo
       service:
-        name: docker
-        state: started
-        enabled: yes
+       name: docker
+       state: started
+       enabled: yes
+
+    - name: Create a network
+      become: yes
+      become_method: sudo
+      docker_network:
+        name: exam_network
+        state: present

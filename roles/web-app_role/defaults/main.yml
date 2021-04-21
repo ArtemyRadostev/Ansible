@@ -1,0 +1,9 @@
+---
+latest_build: 70
+src_port: 5000
+dst_port: 5000
+docker_container_name: webapp-container
+hostname: python-webapp
+docker_net_name: [exam_network]
+docker_image_name: ffswhy1/flask_app
+docker_image_build: 14
