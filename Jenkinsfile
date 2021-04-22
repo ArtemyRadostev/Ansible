@@ -2,8 +2,8 @@ pipeline {
 	agent {label 'agent'}
 
 	stages {
-		stage('Deploy'){
-		steps{
+		stage('Deploy') {
+		steps {
 		ansiblePlaybook(
 			colorized: true,
 			credentialsId: 'ssh-cred',
@@ -11,13 +11,14 @@ pipeline {
 			playbook: "playbook.yml"
 			)
 		}
-		stage('Wait for Nginx restart'){
-		 steps{
+		}
+		stage('Wait for Nginx restart') {
+		 steps {
 		  sleep 20 // seconds
 		}
 		}
-		stage('Connection checks (http requests'){
-		 steps{
+		stage('Connection checks (http requests') {
+		 steps {
 		  script {
 		    def nginx_ip = sh(script: "docker inspect --format '{{ .NetworkSettings.IPAddress }}' nginx-balancer", returnStdout: true)
                         
@@ -25,5 +26,6 @@ pipeline {
                     echo response
 	        }
                }
-		}
-		}
+	      }
+	     }
+            }
