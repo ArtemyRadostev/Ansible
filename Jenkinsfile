@@ -24,5 +24,6 @@ pipeline {
                     def response = sh(script: 'curl -sI ' + nginx_ip, returnStdout: true)
                     echo response
 	        }
-                }
+               }
+		}
 		}
