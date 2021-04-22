@@ -20,10 +20,10 @@ pipeline {
 		stage('Connection checks (http requests') {
 		 steps {
 		  script {
-		    def nginx_ip = sh(script: 'curl -sI 192.168.56.115:85', returnStdout: true)
+		    def http-status = sh(script: 'curl -sI 192.168.56.115:85', returnStdout: true)
                         
                    // def response = sh(script: 'curl -sI ' + nginx_ip, returnStdout: true)
-                    echo nginx_ip
+                    echo http-status
 	        }
                }
 	      }
