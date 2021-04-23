@@ -3,6 +3,8 @@
   gather_facts: no
   tasks:
 #Install docker
+   - debug: msg="{{ lookup('env','BUILD_TAG') }}"
+#Look up for build tag var
    - include_role:
        name: docker-role
 #Make first webapp container
@@ -12,7 +14,7 @@
      vars:
        docker_container_name: 'webapp1'
        docker_image_name: 'ffswhy1/flask_app'
-       docker_image_build: '1'
+       docker_image_build: '{{ BUILD_TAG }}'
        hostname: 'webapp1'
        src_port: 5001
 #Make second webapp container
@@ -22,7 +24,7 @@
      vars:
        docker_container_name: 'webapp2'
        docker_image_name: 'ffswhy1/flask_app'
-       docker_image_build: '1'
+       docker_image_build: '{{ BUILD_TAG }}'
        hostname: 'webapp2'
        src_port: 5002
 #Make third webapp container
@@ -32,7 +34,7 @@
      vars:
        docker_container_name: 'webapp3'
        docker_image_name: 'ffswhy1/flask_app'
-       docker_image_build: '1'
+       docker_image_build: '{{ BUILD_TAG }}'
        hostname: 'webapp3'
        src_port: 5003
 #Make Nginx container
